@@ -7,5 +7,5 @@ module.exports = (app) => {
   // handlers
   require("./handlers")(app);
 
-  return app
-}
+  return app;
+};

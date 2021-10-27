@@ -16,13 +16,11 @@ const event = () => ({
 });
 
 
-const request = (event) => {
-  axios({
-    method: "post",
-    url: "http://localhost:3333/events",
-    data: event
-  })
-}
+const request = (event) => axios({
+  method: "post",
+  url: "http://localhost:3333/events",
+  data: event
+});
 
-if (require.main === module) setInterval(() => request(event()), 100)
+if (require.main === module) setInterval(() => request(event()), 100);
 
