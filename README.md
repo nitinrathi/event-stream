@@ -85,5 +85,4 @@ const action = (event) => Promise.resolve(event);
 #### note on the implementation of every10thEvent condition
 
 In this case we wanted to trigger an action when we receive the 10th event from the user, but this condition is `every` 10th event.
-Since `redis.incr` actually sets the value of key to zero when called for the first time, this condition is actually called on every 11th, 21st and so on events.
 
