@@ -1,17 +1,23 @@
 const config = require("./config");
+const redisClient = require("./redis-client");
+
+const pass = () => {}
+
+const incr = key => redisClient.incr(key);
+const context = { incr };
 
 const handleEvent = (event) => {
   config.forEach(({ condition, actions }) => {
-    if (condition(event)) {
-      actions.forEach(action => console.log("calling action") || action(event))
-    }
-  })
+    condition(context)(event)
+    .then(matches => matches
+      ? actions.forEach(action => action(event))
+      : pass(event)
+  )})
 }
 
 module.exports = (app) => {
+
   app.get("/", (req, res) => res.send("ok"))
-  app.post("/events", (req, res) =>
-    console.log(req.body)
-      || handleEvent(req.body)
-      || res.send(req.body))
+
+  app.post("/events", (req, res) => handleEvent(req.body) || res.send(req.body));
 };

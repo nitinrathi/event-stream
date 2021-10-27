@@ -1,14 +1,17 @@
-const prop = key => obj => obj[key];
-
-const match =
-  (field, value) =>
-  (event) => 
-
-  prop(field)(event) === value
+const conditions = require("./conditions");
 
 module.exports = [
   {
-    condition: match("location", "Pune"),
-    actions: [console.log]
+    condition: conditions.every10thEvent,
+    actions: [event => console.log(event["user-name"], "is supper active")]
+  },
+  {
+    condition: conditions.contains("tags", "happy"),
+    actions: [event => console.log(event["user-name"], "is happy")]
+  },
+  {
+    condition: conditions.match("location", "Pune"),
+    actions: [event => console.log(event["user-name"], "is in Pune")]
   }
 ];
+
